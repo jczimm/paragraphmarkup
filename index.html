@@ -43,7 +43,7 @@
       function paragraphize(str) {
         return str.split('\n').map(function(paragraph) {
           return '<p>' + paragraph.trim() + '</p>';
-        }).join('');
+        }).join('\n');
       }
     </script>
   </body>
