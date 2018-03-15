@@ -2,10 +2,30 @@
 <html>
   <head>
     <title>Create HTML Paragraph Markup</title>
+    
+    <style type="text/css">
+    #text {
+      width: 100%;
+      resize: vertical;
+    }
+    div {
+      padding: 1em;
+    } 
+    </style>
   </head>
   <body>
-    <textarea style="width: 100%; resize: vertical" id="text">Insert text here</textarea>
-    <button onclick="run()">Convert</button>
+    <div>
+      <textarea id="text" cols="25">Insert text here</textarea>
+    </div>
+    
+    <div>
+      <input type="checkbox" id="use-names" checked>
+      <label for="use-names">Use Named Entities</label>
+    </div>
+    
+    <div>
+      <button onclick="run()">Convert</button>
+    </div>
     
     <script src="https://cdn.rawgit.com/mathiasbynens/he/670991a4141d01dc015de5194d400d01c863208f/he.js"></script>
     <script>
@@ -15,7 +35,10 @@
         textarea.value = convert(textarea.value);
       }
       function convert(str) {
-        return paragraphize(he.encode(str));
+        var useNames = document.getElementById('use-names').checked;
+        return paragraphize(he.encode(str, {
+          useNamedReferences: useNames,
+        }));
       }
       function paragraphize(str) {
         return '<p>' + str.replace(/\n/g, '</p>\n<p>') + '</p>';
