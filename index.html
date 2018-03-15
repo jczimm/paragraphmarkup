@@ -9,7 +9,7 @@
       resize: vertical;
     }
     div {
-      padding: 1em;
+      padding: 1em 1em 0 1em;
     } 
     </style>
   </head>
@@ -30,10 +30,10 @@
     <script src="https://cdn.rawgit.com/mathiasbynens/he/670991a4141d01dc015de5194d400d01c863208f/he.js"></script>
     <script>
       var textarea = document.getElementById('text');
-      
       function run() {
         textarea.value = convert(textarea.value);
       }
+      
       function convert(str) {
         var useNames = document.getElementById('use-names').checked;
         return paragraphize(he.encode(str, {
@@ -41,7 +41,9 @@
         }));
       }
       function paragraphize(str) {
-        return '<p>' + str.replace(/\n/g, '</p>\n<p>') + '</p>';
+        return str.split('\n').map(function(paragraph) {
+          return '<p>' + paragraph.trim() + '</p>');
+        }).join('');
       }
     </script>
   </body>
