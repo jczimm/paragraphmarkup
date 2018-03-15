@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Create HTML Paragraph Markup</title>
+  </head>
+  <body>
+    <textarea style="width: 100%; resize: vertical" id="text">Insert text here</textarea>
+    <button onclick="run()">Convert</button>
+    
+    <script src="https://cdn.rawgit.com/mathiasbynens/he/670991a4141d01dc015de5194d400d01c863208f/he.js"></script>
+    <script>
+      const textarea = document.getElementById('#text');
+      
+      function run() {
+        textarea.value = convert(textarea.value);
+      }
+      function convert(str) {
+        return paragraphize(he.encode(str));
+      }
+      function paragraphize(str) {
+        return '<p>' + str.replace(/\n/g, '</p>\n<p>') + '</p>';
+      }
+    </script>
+  </body>
+</html>
